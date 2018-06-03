@@ -1,9 +1,9 @@
-#ASCII Super Snake!
+# ASCII Super Snake!
 
-##Synopsis
+## Synopsis
 This is a very basic implimentation of snake made in JDK 1.8
 
-##Motivation
+## Motivation
 I have decided to do this as small intro-to-java project
 
 Enjoy!

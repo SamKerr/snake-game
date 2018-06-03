@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dad7d1d4-d3ee-41e7-8f51-80b3106050b5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/java-snake.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/javasnake/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/javasnake/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/javasnake/Snake.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/javasnake/SnakeBody.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/resources/BoardChars.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/resources/Direction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/resources/Pair.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/com/javasnake/testGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -192,6 +178,24 @@
             <path>
               <item name="java-snake" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-snake" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-snake" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-snake" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-snake" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-snake" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-snake" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-snake" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="javasnake" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
