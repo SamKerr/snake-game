@@ -1,4 +1,4 @@
-package main.java.com.javasnake;
+package snake;
 
 public class Main {
 

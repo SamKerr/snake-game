@@ -1,8 +1,4 @@
-package main.java.com.javasnake;
-
-import main.java.resources.BoardChars;
-import main.java.resources.Direction;
-import main.java.resources.Pair;
+package snake;
 
 import javax.swing.*;
 import java.awt.*;

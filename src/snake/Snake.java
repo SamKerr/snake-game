@@ -1,8 +1,5 @@
-package main.java.com.javasnake;
+package snake;
 
-
-import main.java.resources.Direction;
-import main.java.resources.Pair;
 
 import java.util.ArrayList;
 

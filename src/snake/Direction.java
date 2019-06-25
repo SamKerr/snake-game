@@ -1,4 +1,4 @@
-package main.java.resources;
+package snake;
 
 public enum Direction {
       UP

@@ -1,4 +1,4 @@
-package main.java.resources;
+package snake;
 
 public enum BoardChars {
     WALL('X'), SNAKE('@'), FOOD('O'), SPACE('.');

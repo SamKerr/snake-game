@@ -1,4 +1,4 @@
-package main.java.resources;
+package snake;
 
 /*
 * This allows me to plot coordinates

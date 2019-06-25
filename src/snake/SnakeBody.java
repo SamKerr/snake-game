@@ -1,6 +1,4 @@
-package main.java.com.javasnake;
-
-import main.java.resources.Pair;
+package snake;
 
 import java.util.ArrayList;
 
@@ -106,49 +104,5 @@ public class SnakeBody {
     private ArrayList<Node> get_allNodes(){
         ArrayList<Node> fullBodyIterable = new ArrayList<>(size());
         return _tail.getAllNextNodes(fullBodyIterable);
-    }
-
-    private class Node{
-
-
-        public Node _previous;
-
-        public Pair<Integer, Integer> _coordinates;
-
-        public Node _next;
-
-
-        public Node(Pair<Integer, Integer> cell){
-            _coordinates = cell;
-        }
-
-        public void setPrevious(Node n){
-            _previous = n;
-            n.setNext(this);
-        }
-
-        public void setNext(Node n){
-            this._next = n;
-        }
-
-        public Pair<Integer, Integer> getCoordinates(){
-            return _coordinates;
-        }
-
-        public ArrayList<Node> getAllNextNodes(ArrayList<Node> nodes){
-            nodes.add(this);
-            if(this._next != null){
-                this._next.getAllNextNodes(nodes);
-            }
-            return nodes;
-        }
-
-        public ArrayList<Node> getAllPreviousNodes(ArrayList<Node> nodes){
-            nodes.add(this);
-            if(this._previous != null){
-                this._previous.getAllNextNodes(nodes);
-            }
-            return nodes;
-        }
     }
 }
