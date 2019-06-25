@@ -2,107 +2,72 @@ package snake;
 
 import java.util.ArrayList;
 
-/*
-* This models the snake body as a linked list
-* Although it is totally feasable to use a standard ArrayList
-* I just think its very idiomatic of snake
-* */
 public class SnakeBody {
 
-    private int _size;
-    private Node _tail;
-    private Node _head;
-    private boolean _dead = false;
+    private boolean isDead;
+    private ArrayList<Pair> nodes;
 
-    public SnakeBody(Pair<Integer, Integer> head){
-        _head = new Node(head);
-        _tail = _head;
-        _size = 1;
+
+    public SnakeBody(Pair head){
+        nodes = new ArrayList<>(1);
+        nodes.add(head);
     }
 
-    public void snakeGrow(Pair<Integer, Integer> newTail){
-        Node newTailNode = new Node(newTail);
-        _tail.setPrevious(newTailNode);
-        _tail = newTailNode;
-        _size++;
-    }
-
-    public void moveSnakeForward(Node currentN, Pair<Integer, Integer> location){
-
-        for (Node n: get_allNodes()
-             ) {
-            if(n._coordinates == location) _dead = true;
-        }
-
-        if(currentN._next != null){
-            currentN._coordinates = currentN._next._coordinates;
-            moveSnakeForward(currentN._next, location);
-
-            if(currentN._previous == null) _tail = currentN;
-        }
-        else {
-            currentN._coordinates = location;
-            _head = currentN;
-        }
+    public void snakeGrow(Pair newTail){
+        nodes.add(newTail);
     }
 
     public Integer size(){
-        return _size;
+        return nodes.size();
     }
 
-    public Node get_head(){
-        return _head;
+    public Pair get_head(){
+        return nodes.get(0);
     }
 
-    public Node get_tail(){
-        return _tail;
+    public Pair get_tail(){
+        return nodes.get(size()-1);
     }
 
-    public Boolean isSelfCollision(){
-        int counter = 0;
-        for (Node n: get_allNodes()
-             ) {
-                if(n._coordinates == _head._coordinates) counter++;
+    public boolean collision(int maxX, int maxY){
+        isDead |= isSelfCollision() || collidesWithWall(maxX, maxY);
+        if (isDead){
+            int a = 1;
         }
-        if(counter > 1 || _dead) return true;
-        else return false;
+        return isDead;
     }
 
-    public Boolean collidesWithWall(int maxX , int maxY){
-        int headY = _head.getCoordinates().y;
-        int headX = _head.getCoordinates().x;
-        return (headX == 0 || headX == maxX - 1 || headY == 0 || headY == maxY - 1);
+    private Boolean isSelfCollision() {
+        Pair head = nodes.get(0);
+        boolean collides = false;
+        for (int i = 1; i < size(); i++) {
+           collides |= head.isEqual(nodes.get(i));
+        }
+        return collides;
+    }
+
+    private Boolean collidesWithWall(int maxX , int maxY){
+        Pair head = nodes.get(0);
+        return (head.x == 0 || head.x == maxX - 1 || head.y == 0 || head.y == maxY - 1);
+    }
+
+    public ArrayList<Pair> getNodes(){
+        return nodes;
     }
 
     public ArrayList<Integer> getXs(){
-        ArrayList<Integer> xOrds = new ArrayList<>(_size);
-        for (Pair<Integer, Integer> node: get_fullBody()
-             ) {
+        ArrayList<Integer> xOrds = new ArrayList<>(nodes.size());
+        for (Pair node: getNodes()) {
             xOrds.add(node.x);
         }
         return xOrds;
     }
 
     public ArrayList<Integer> getYs(){
-        ArrayList<Integer> yOrds = new ArrayList<>(_size);
-        for (Pair<Integer, Integer> node: get_fullBody()
-                ) {
+        ArrayList<Integer> yOrds = new ArrayList<>(nodes.size());
+        for (Pair node: getNodes()) {
             yOrds.add(node.y);
         }
         return yOrds;
-    }
-
-    public ArrayList<Pair<Integer, Integer>> get_fullBody(){
-        ArrayList<Pair<Integer, Integer>> allCoordinates = new ArrayList<>(size());
-        for (Node n: get_allNodes()
-             ) {
-            allCoordinates.add(n._coordinates);
-        }
-        return allCoordinates;
-    }
-
-    private ArrayList<Node> get_allNodes(){
-        ArrayList<Node> fullBodyIterable = new ArrayList<>(size());
-        return _tail.getAllNextNodes(fullBodyIterable);
     }
 }

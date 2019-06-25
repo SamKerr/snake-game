@@ -1,18 +1,22 @@
 package snake;
 
+
 /*
 * This allows me to plot coordinates
-* It is in the form (y,x) as this is more appropriate for 2d arrays
-* */
-public class Pair<Y, X> {
-    public final Y y;
-    public final X x;
-    public Pair(Y y, X x) {
+*/
+public class Pair implements Cloneable {
+    public int y;
+    public int x;
+    public Pair(int y, int x) {
         this.y = y;
         this.x = x;
     }
 
-    public boolean isEqual(Pair<Y, X> other){
+    public boolean isEqual(Pair other){
         return this.x == other.x && this.y == other.y;
+    }
+
+    public Pair clone(){
+        return new Pair(y,x);
     }
 }

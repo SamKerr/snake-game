@@ -15,15 +15,15 @@ import java.util.concurrent.ThreadLocalRandom;
 * */
 public class Game implements KeyListener {
 
-    private Snake _snake;
-    private char[][] _board;
+    private Snake snake;
+    private char[][] board;
 
-    private final int _maxY;
-    private final int _maxX;
+    private final int maxY;
+    private final int maxX;
 
-    private Pair<Integer, Integer> _food;
+    private Pair food;
 
-    private Boolean _isOver;
+    private Boolean isOver;
 
     //KeyListener things
     {
@@ -39,14 +39,14 @@ public class Game implements KeyListener {
     }
 
     public Game(int boardWidth, int boardHeight){
-        _maxX  = boardWidth;
-        _maxY  = boardHeight;
-        _snake = new Snake(boardWidth, boardHeight);
-        _board = new char[boardHeight][boardWidth];
+        maxX = boardWidth;
+        maxY = boardHeight;
+        snake = new Snake(boardWidth, boardHeight);
+        board = new char[boardHeight][boardWidth];
 
         int randomI = ThreadLocalRandom.current().nextInt(1, boardHeight - 1);
         int randomJ = ThreadLocalRandom.current().nextInt(1, boardWidth - 1);
-        _food = new Pair<>(randomI, randomJ);
+        food = new Pair(randomI, randomJ);
         refreshBoard();
     }
 
@@ -57,40 +57,39 @@ public class Game implements KeyListener {
     * */
     public void generateFood(){
         ArrayList<Integer> spaceYs = new ArrayList<>();
-        for (int y = 1; y <_maxY - 1; y++) {
-            if(!_snake.getBodyYs().contains(y)){
+        for (int y = 1; y < maxY - 1; y++) {
+            if(!snake.getBodyYs().contains(y)){
                 spaceYs.add(y);
             }
         }
 
         ArrayList<Integer> spaceXs = new ArrayList<>();
-        for (int x = 1; x <_maxX - 1 ; x++) {
-            if(!_snake.getBodyXs().contains(x)){
+        for (int x = 1; x < maxX - 1 ; x++) {
+            if(!snake.getBodyXs().contains(x)){
                 spaceXs.add(x);
             }
         }
 
         int randomY = ThreadLocalRandom.current().nextInt(0, spaceYs.size());
         int randomX = ThreadLocalRandom.current().nextInt(0, spaceXs.size());
-        _food = new Pair<>(randomY, randomX);
+        food = new Pair(randomY, randomX);
     }
 
     /*
     * If snakeHead is at food location then move snake forward
     * Add one to the tail of the snake
     * */
-    public void moveAndMaybeEat(Pair<Integer, Integer> food){
+    public void moveAndMaybeEat(Pair food){
 
-        if(_snake.getHeadCoordinates().isEqual(food)) {
-
-            Pair<Integer, Integer> lastBody = _snake.getBodyAsNodes().get_tail()._coordinates;
-            _snake.moveDirection();
-            _snake.getBodyAsNodes().snakeGrow(lastBody);
+        if(snake.getHeadCoordinates().isEqual(food)) {
+            Pair lastBody = snake.getBodyAsNodes().get_tail().clone();
+            snake.moveDirection();
+            snake.getBodyAsNodes().snakeGrow(lastBody);
             generateFood();
 
         }
         else {
-            _snake.moveDirection();
+            snake.moveDirection();
         }
     }
 
@@ -99,33 +98,30 @@ public class Game implements KeyListener {
     *  Sets each char in the board
     * */
     public void refreshBoard(){
-
-        moveAndMaybeEat(_food);
-
-        for (int i = 0; i < _maxY; i++) {
-            for (int j = 0; j < _maxX ; j++) {
-
-                if(i==0 || i == _maxY - 1 || j == 0 || j == _maxX - 1){
-                    _board[i][j] = BoardChars.WALL.charecter();
+        moveAndMaybeEat(food);
+        for (int i = 0; i < maxY; i++) {
+            for (int j = 0; j < maxX; j++) {
+                if(i==0 || i == maxY - 1 || j == 0 || j == maxX - 1){
+                    board[i][j] = BoardChars.WALL.charecter();
                 }
                 else{
-                    _board[i][j] = BoardChars.SPACE.charecter();
+                    board[i][j] = BoardChars.SPACE.charecter();
                 }
             }
         }
 
-        for (Pair<Integer, Integer> coordinates: _snake.getBodyAsCoordinates()) {
+        for (Pair coordinates: snake.getBodyAsCoordinates()) {
             int y = coordinates.y;
             int x = coordinates.x;
-            _board[y][x] = BoardChars.SNAKE.charecter();
+            board[y][x] = BoardChars.SNAKE.charecter();
         }
 
-        _board[_food.y][_food.x] = BoardChars.FOOD.charecter();
+        board[food.y][food.x] = BoardChars.FOOD.charecter();
     }
 
     public void drawBoard(){
         clearScreen();
-        for (char[] row: _board) {
+        for (char[] row: board) {
             System.out.println(row);
         }
     }
@@ -135,27 +131,27 @@ public class Game implements KeyListener {
     }
 
     public Boolean isOver(){
-        _isOver = _snake.checkIfSnakeCrashed();
-        return _isOver;
+        isOver = snake.checkIfSnakeCrashed();
+        return isOver;
     }
 
     public void changeDirecton(KeyEvent keyEvent){
         int keyCode = keyEvent.getKeyCode();
         switch (keyCode){
             case KeyEvent.VK_UP:
-                _snake.set_direction(Direction.UP);
+                snake.setDirection(Direction.UP);
                 break;
 
             case KeyEvent.VK_RIGHT:
-                _snake.set_direction(Direction.RIGHT);
+                snake.setDirection(Direction.RIGHT);
                 break;
 
             case KeyEvent.VK_DOWN:
-                _snake.set_direction(Direction.DOWN);
+                snake.setDirection(Direction.DOWN);
                 break;
 
             case KeyEvent.VK_LEFT:
-                _snake.set_direction(Direction.LEFT);
+                snake.setDirection(Direction.LEFT);
                 break;
 
              default:

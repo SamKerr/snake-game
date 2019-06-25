@@ -5,24 +5,23 @@ import java.util.ArrayList;
 
 public class Snake {
     //each pair is <y,x> as thats how indexing works
-    private SnakeBody _body;
-    private Direction _direction;
+    private SnakeBody body;
+    private Direction direction;
 
-    private final int _boardHeight;
-    private final int _boardWidth;
+    private final int boardHeight;
+    private final int boardWidth;
 
     public Snake(int boardWidth, int boardHeight){
-        _boardWidth = boardWidth;
-        _boardHeight = boardHeight;
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
         int middleX = boardWidth / 2;
         int middleY = boardHeight / 2;
-        _body = new SnakeBody(new Pair<>(middleY, middleX));
-        _direction = Direction.RIGHT;
+        body = new SnakeBody(new Pair(middleY, middleX));
+        direction = Direction.RIGHT;
     }
 
     public void moveDirection(){
-        //remember that 0,0 pair is top left corner
-        switch (_direction){
+        switch (direction){
             case UP:
                 incrimentBody(-1,0);
                 break;
@@ -41,40 +40,34 @@ public class Snake {
     }
 
     private void incrimentBody(int yIncriment, int xIncriment){
-
-        Pair<Integer, Integer> head = _body.get_head()._coordinates;
-        int yOrd = head.y + yIncriment;
-        int xOrd = head.x + xIncriment;
-        _body.moveSnakeForward(_body.get_tail(), new Pair<>(yOrd, xOrd));
+        ArrayList<Pair> nodes = body.getNodes();
+        for (int i = body.size()-1; i > 0; i--) {
+            nodes.set(i, nodes.get(i-1).clone());
+        }
+        Pair head = body.get_head();
+        head.x += xIncriment;
+        head.y += yIncriment;
     }
 
-
     public Boolean checkIfSnakeCrashed(){
-        if(_body.isSelfCollision() || _body.collidesWithWall(_boardWidth, _boardHeight)){
-            return true;
-        }
-        else return false;
+        return body.collision(boardWidth, boardHeight);
     }
 
     public SnakeBody getBodyAsNodes(){
-        return _body;
+        return body;
     }
 
-    public ArrayList<Pair<Integer, Integer>> getBodyAsCoordinates(){
-        return _body.get_fullBody();
-    }
+    public void setDirection(Direction direction){this.direction = direction;}
 
-    public  Pair<Integer, Integer> getHeadCoordinates() {return _body.get_head()._coordinates; }
+    public ArrayList<Pair> getBodyAsCoordinates(){return body.getNodes();}
 
-    public void set_direction(Direction direction){
-        _direction = direction;
-    }
+    public  Pair getHeadCoordinates() {return body.get_head(); }
 
     public ArrayList<Integer> getBodyYs(){
-        return _body.getYs();
+        return body.getYs();
     }
 
-    public ArrayList<Integer> getBodyXs() { return _body.getXs(); }
+    public ArrayList<Integer> getBodyXs() { return body.getXs(); }
 
 
 }
