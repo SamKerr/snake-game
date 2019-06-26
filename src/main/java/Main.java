@@ -51,7 +51,6 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setTitle("Java Snake!");
 
-        Parent root = FXMLLoader.load(getClass().getResource("/main/resources/MainScreen.fxml"));
         GridPane grid = new GridPane();
 
         Scene scene = new Scene(grid, BOARDHEIGHT*(RECTSIZE+2), BOARDWIDTH*(RECTSIZE+2));
