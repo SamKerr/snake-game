@@ -1,9 +1,8 @@
-# ASCII Super Snake!
+# Java Super Snake!
 
 ## Synopsis
-This is a very basic implimentation of snake made in JDK 1.8
+Fun snake game made in JavaFX with JDK 1.8
 
-## Motivation
-I have decided to do this as small intro-to-java project
-
-Enjoy!
+## How to play
+Simply clone the repository with `git clone https://github.com/Haskool/ascii-super-snake-.com`
+Then using your IDE of choice it can be played.
