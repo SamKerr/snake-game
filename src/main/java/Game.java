@@ -2,10 +2,14 @@ package main.java;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
+
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static javafx.scene.input.KeyCode.UP;
 
 
 /*
@@ -13,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 * It prints the snake board to terminal
 * As ASCII text
 * */
-public class Game implements KeyListener {
+public class Game {
 
     private Snake snake;
     private char[][] board;
@@ -24,19 +28,6 @@ public class Game implements KeyListener {
     private Pair food;
 
     private Boolean isOver;
-
-    //KeyListener things
-    {
-        JTextField keyText = new JTextField(1);
-        keyText.addKeyListener(this);
-        JFrame frame = new JFrame();
-        Container contentPane = frame.getContentPane();
-        JTextField textField = new JTextField();
-        textField.addKeyListener(this);
-        contentPane.add(textField, BorderLayout.NORTH);
-        frame.pack();
-        frame.setVisible(true);
-    }
 
     public Game(int boardWidth, int boardHeight){
         maxX = boardWidth;
@@ -136,21 +127,21 @@ public class Game implements KeyListener {
     }
 
     public void changeDirecton(KeyEvent keyEvent){
-        int keyCode = keyEvent.getKeyCode();
+        KeyCode keyCode = keyEvent.getCode();
         switch (keyCode){
-            case KeyEvent.VK_UP:
+            case UP:
                 snake.setDirection(Direction.UP);
                 break;
 
-            case KeyEvent.VK_RIGHT:
+            case RIGHT:
                 snake.setDirection(Direction.RIGHT);
                 break;
 
-            case KeyEvent.VK_DOWN:
+            case DOWN:
                 snake.setDirection(Direction.DOWN);
                 break;
 
-            case KeyEvent.VK_LEFT:
+            case LEFT:
                 snake.setDirection(Direction.LEFT);
                 break;
 
@@ -158,16 +149,4 @@ public class Game implements KeyListener {
                 break;
         }
     }
-
-    @Override
-    public void keyTyped(KeyEvent keyEvent) { changeDirecton(keyEvent); }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) { changeDirecton(keyEvent); }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-        //Do nothing when key released
-    }
-
 }
