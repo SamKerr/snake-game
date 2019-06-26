@@ -78,7 +78,6 @@ public class Game {
      */
     public void changeDirecton(KeyEvent keyEvent){
         KeyCode keyCode = keyEvent.getCode();
-        System.out.println(keyCode);
         switch (keyCode){
             case UP:
                 snake.setDirection(Direction.UP);
@@ -111,5 +110,9 @@ public class Game {
 
     public Boolean isOver() {
         return snake.checkIfSnakeCrashed();
+    }
+
+    public int getScore(){
+        return snake.getBodyAsCoordinates().size();
     }
 }

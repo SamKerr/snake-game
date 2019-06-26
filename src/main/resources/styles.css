@@ -1,6 +1,6 @@
 
 .snake-rect {
-    -fx-fill: #00FFFF;
+    -fx-fill: green;
     -fx-stroke: black;
     -fx-stroke-width: 2;
 }
