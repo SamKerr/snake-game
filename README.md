@@ -1,4 +1,4 @@
-# ASCII Super Snake!
+# Java Super Snake!
 
 ## Synopsis
 Fun snake game made in JavaFX with JDK 1.8
