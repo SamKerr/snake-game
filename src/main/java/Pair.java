@@ -1,9 +1,5 @@
 package main.java;
 
-
-/*
-* This allows me to plot coordinates
-*/
 public class Pair implements Cloneable {
     public int y;
     public int x;

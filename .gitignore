@@ -1,2 +1,4 @@
 *.class
-.idea
+.idea/
+outputs/
+tests/

@@ -7,35 +7,28 @@ import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.swing.plaf.ColorUIResource;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main extends Application {
 
-    private static final int BOARDWIDTH = 50;
-    private static final int BOARDHEIGHT = 50;
-    private static final int RECTSIZE = 10;
+    private static final int BOARDWIDTH = 15;
+    private static final int BOARDHEIGHT = 15;
+    private static final int RECTSIZE = 18;
     private Game game;
     private Rectangle[][] rectBoard;
-    private Game ga;
 
     private Stage primaryStage;
     private Timeline clock;
@@ -53,7 +46,7 @@ public class Main extends Application {
 
         GridPane grid = new GridPane();
 
-        Scene scene = new Scene(grid, BOARDHEIGHT*(RECTSIZE+2), BOARDWIDTH*(RECTSIZE+2));
+        Scene scene = new Scene(grid, BOARDHEIGHT*(RECTSIZE+1), BOARDWIDTH*(RECTSIZE+1));
         scene.getStylesheets().add(getClass().getResource("/main/resources/styles.css").toExternalForm());
         primaryStage.setScene(scene);
 
@@ -126,61 +119,60 @@ public class Main extends Application {
     private void gameOver(){
         clock.stop();
 
-        String scoresPath = "C:/Users/Sampk/Google Drive/CS/code/git/ascii-super-snake-/src/main/resources/scores.txt";
-        //Display pop up
+        String scoresPath = "scores.txt";
         final Stage dialog = new Stage();
-        dialog.setTitle("Well Played!");
+        dialog.setTitle("Game Over!");
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(primaryStage);
 
         GridPane grid = new GridPane();
-        grid.add(new Text("GAME OVER!"), 1, 0, 3,1);
+        grid.add(new Text("Well Played!"), 1, 0, 3,1);
         grid.add(new Text("Score: " + game.getScore()), 0 , 1,1,1);
 
+        String maxScorersName = null;
+        int maxScore = 0;
         try{
             File file = new File(scoresPath);
             Scanner scanner = new Scanner(file);
-            ArrayList<Integer> scores = new ArrayList<>();
-            ArrayList<String> names = new ArrayList<>();
             String st;
             while ((scanner.hasNextLine())) {
                 st = scanner.nextLine();
+                System.out.println("Line is: " + st);
                 String[] nameScore = st.split(",");
                 int score = Integer.parseInt(nameScore[1]);
                 String name = nameScore[0];
-                scores.add(score);
-                names.add(name);
-
+                if(score>maxScore){
+                    maxScore = score;
+                    maxScorersName = name;
+                }
             }
-            int indexOfMaxScore = scores.stream().reduce(0, (a,b) -> {return scores.get(a) > scores.get(b) ? a : b;} );
-            grid.add(new Text("Current High Score: " + scores.get(indexOfMaxScore) + " By " + names.get(indexOfMaxScore) ), 0 , 2,3,1);
         } catch (Exception e ){
-            grid.add(new Text("Current High Score: " + game.getScore() + " By You!"), 0 , 2,3,1);
+            e.printStackTrace();
         }
 
+        if(game.getScore() >= maxScore || maxScorersName == null){
+            grid.add(new Text("Your Current High Score: " + game.getScore()), 0 , 2,3,1);
+        } else {
+            grid.add(new Text("Current High Score: " + maxScore + " By " + maxScorersName), 0 , 2,3,1);
+        }
         grid.add(new Text("Name: "), 0, 3, 1,1);
         TextField nameField = new TextField();
         grid.add(nameField, 2, 3, 2,1);
         Button saveButton = new Button("Save");
-
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 try {
                     File file = new File(scoresPath);
-                    BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-                    bw.append(nameField.getCharacters().toString() + "," + game.getScore());
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+                    bw.append(nameField.getCharacters().toString()).append(",").append(String.valueOf(game.getScore())).append("\n");
                     bw.close();
+                    System.exit(0);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
             }
         });
         grid.add(saveButton, 3, 3, 1,1);
-
-
-
-
-
         Scene dialogScene = new Scene(grid, 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();

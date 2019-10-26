@@ -1,18 +1,18 @@
 
 .snake-rect {
-    -fx-fill: green;
+    -fx-fill: #59982f;
     -fx-stroke: black;
-    -fx-stroke-width: 2;
+    -fx-stroke-width: 1;
 }
 
 .background-rect {
     -fx-fill: #d3d3d3;
     -fx-stroke: black;
-    -fx-stroke-width: 2;
+    -fx-stroke-width: 1;
 }
 
 .food-rect {
     -fx-fill: #FF0000;
     -fx-stroke: black;
-    -fx-stroke-width: 2;
+    -fx-stroke-width: 1;
 }

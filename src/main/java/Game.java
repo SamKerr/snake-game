@@ -16,7 +16,7 @@ public class Game {
 
     public Game(int boardWidth, int boardHeight){
         snake = new Snake(boardWidth, boardHeight);
-        randomGenerator = new Random(1);
+        randomGenerator = new Random(0);
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
         food = getRandomPair(boardHeight-1, boardWidth-1);
