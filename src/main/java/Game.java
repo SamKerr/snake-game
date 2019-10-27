@@ -24,7 +24,7 @@ public class Game {
     }
 
     /**
-     * Generates food that cannot be where the snake curreently is
+     * Generates food that cannot be where the snake currently is
      */
     private void generateFood(){
         ArrayList<Integer> availableYs = new ArrayList<>();
@@ -45,10 +45,6 @@ public class Game {
     }
 
 
-    /**
-     * generate random pair of integers
-     * NOTE: nextInt(bound) generates int from [0,bound) so is exclusive on bound
-     */
     private Pair getRandomPair(int yBound, int xBound){
         return new Pair(randomGenerator.nextInt(yBound), randomGenerator.nextInt(xBound));
     }

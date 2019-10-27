@@ -22,7 +22,7 @@ import javafx.util.Duration;
 import java.io.*;
 import java.util.Scanner;
 
-public class Main extends Application {
+public class App extends Application {
 
     private static final int BOARDWIDTH = 15;
     private static final int BOARDHEIGHT = 15;
@@ -94,10 +94,12 @@ public class Main extends Application {
     public void refreshBoard(Scene scene){
         game.move();
 
+
+
         if (game.isOver()) {
             gameOver();
+            return;
         }
-
 
         GridPane grid = (GridPane) scene.getRoot();
         ObservableList<Node> children = grid.getChildren();
@@ -137,7 +139,6 @@ public class Main extends Application {
             String st;
             while ((scanner.hasNextLine())) {
                 st = scanner.nextLine();
-                System.out.println("Line is: " + st);
                 String[] nameScore = st.split(",");
                 int score = Integer.parseInt(nameScore[1]);
                 String name = nameScore[0];

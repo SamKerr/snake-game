@@ -31,9 +31,6 @@ public class SnakeBody {
 
     public boolean collision(int maxX, int maxY){
         isDead |= isSelfCollision() || collidesWithWall(maxX, maxY);
-        if (isDead){
-            int a = 1;
-        }
         return isDead;
     }
 
@@ -48,7 +45,7 @@ public class SnakeBody {
 
     private Boolean collidesWithWall(int maxX , int maxY){
         Pair head = nodes.get(0);
-        return (head.x == 0 || head.x == maxX - 1 || head.y == 0 || head.y == maxY - 1);
+        return (head.x < 0 || head.x >= maxX || head.y < 0 || head.y >= maxY);
     }
 
     public ArrayList<Pair> getNodes(){
